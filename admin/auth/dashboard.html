@@ -1,18 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="/styles/style.css">
+    <title>Soft UI Dashboard</title>
+    <link rel="stylesheet" href="/styles/dashboard.css">
 </head>
 <body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <!-- Added button to toggle sidebar on desktop -->
+            <button class="sidebar-toggle-desktop" id="sidebarToggleDesktop">☰</button>
+            <div class="logo">
+                <div class="logo-icon">🏠</div>
+                <span>Taxi Cheap</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <input type="text" class="search-bar" placeholder="Type here...">
+            <button>🔐 Sign in</button>
+            <button>⚙️</button>
+            <button>🔔</button>
+        </div>
+    </div>
 
+    <!-- Overlay del sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <button class="close-sidebar" id="closeSidebar">✕</button>
+            <div class="sidebar-header">
+                
+            </div>
+
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" data-menu="dashboard">
+                    <span class="menu-icon">📈</span>
+                    Administradores
+                </a></li>
+                <li><a href="#" data-menu="tables">
+                    <span class="menu-icon">📈</span>
+                    Conductores
+                </a></li>
+                <li><a href="#" data-menu="billing">
+                    <span class="menu-icon">📈</span>
+                    Pasajeros
+                </a></li>
+                <li><a href="#" data-menu="vr">
+                    <span class="menu-icon">📈</span>
+                    Cupones
+                </a></li>
+                <li><a href="#" data-menu="rtl">
+                    <span class="menu-icon">📈</span>
+                    Mapa
+                </a></li>
+                <li><a href="#" data-menu="rtl">
+                    <span class="menu-icon">📈</span>
+                    Términos y Condiciones
+                </a></li>
+                <li><a href="#" data-menu="rtl">
+                    <span class="menu-icon">📈</span>
+                    Políticas de Privacidad
+                </a></li>
+                <li><a href="#" data-menu="rtl">
+                    <span class="menu-icon">📈</span>
+                    Ayuda y soporte
+                </a></li>
+                <li><a href="#" data-menu="rtl">
+                    <span class="menu-icon">📈</span>
+                    Preguntas frecuentes
+                </a></li>
+            </ul>
+
+            <div class="sidebar-section-title">Configuracion</div>
+            <ul class="sidebar-menu">
+                <li><a href="#" data-menu="profile">
+                    <span class="menu-icon">👤</span>
+                    Cuenta
+                </a></li>
+                <li><a href="#" data-menu="signin">
+                    <span class="menu-icon">🔓</span>
+                    Cerrar sesion
+                </a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Cards Grid -->
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Conductores</div>
+                            <div class="card-value">2.300 <span class="card-change"></span></div>
+                        </div>
+                        <div class="card-icon">👥</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Pasajeros</div>
+                            <div class="card-value">5.000<span class="card-change"></span></div>
+                        </div>
+                        <div class="card-icon sales">👥</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Cupones</div>
+                            <div class="card-value">1.000 <span class="card-change"></span></div>
+                        </div>
+                        <div class="card-icon">💰</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
 </body>
 </html>
