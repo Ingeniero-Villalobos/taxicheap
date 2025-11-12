@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conductores - Taxi Cheap</title>
+    <link rel="stylesheet" href="/styles/dashboard.css">
+    <link rel="stylesheet" href="/styles/conductores.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <button class="sidebar-toggle-desktop" id="sidebarToggleDesktop">☰</button>
+            <div class="logo">
+                <div class="logo-icon">🏠</div>
+                <span>Taxi Cheap</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <input type="text" class="search-bar" placeholder="Type here...">
+            <button>🔐 Sign in</button>
+            <button>⚙️</button>
+            <button>🔔</button>
+        </div>
+    </div>
+
+    <!-- Overlay del sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <button class="close-sidebar" id="closeSidebar">✕</button>
+            <div class="sidebar-header"></div>
+
+            <ul class="sidebar-menu">
+                <li><a href="/admin/auth/dashboard.html" data-menu="dashboard">
+                    <span class="menu-icon">📈</span>
+                    Administradores
+                </a></li>
+                <li><a href="conductores.html" class="active" data-menu="conductores">
+                    <span class="menu-icon">📈</span>
+                    Conductores
+                </a></li>
+                <li><a href="#" data-menu="billing">
+                    <span class="menu-icon">📈</span>
+                    Pasajeros
+                </a></li>
+                <li><a href="#" data-menu="vr">
+                    <span class="menu-icon">📈</span>
+                    Cupones
+                </a></li>
+                <li><a href="#" data-menu="rtl">
+                    <span class="menu-icon">📈</span>
+                    Mapa
+                </a></li>
+            </ul>
+
+            <div class="sidebar-section-title">Configuracion</div>
+            <ul class="sidebar-menu">
+                <li><a href="#" data-menu="profile">
+                    <span class="menu-icon">👤</span>
+                    Cuenta
+                </a></li>
+                <li><a href="#" data-menu="signin">
+                    <span class="menu-icon">🔓</span>
+                    Cerrar sesion
+                </a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <h1>Conductores</h1>
+                <div class="top-bar-controls">
+                    <button>🔍</button>
+                    <button>⚙️</button>
+                    <button>🔔</button>
+                </div>
+            </div>
+
+            <!-- Drivers Table -->
+            <div class="drivers-section">
+                <div class="drivers-header">
+                    <h2>Lista de Conductores</h2>
+                    <input type="text" class="search-drivers" id="searchDrivers" placeholder="Buscar conductor...">
+                </div>
+
+                <div class="drivers-grid" id="driversGrid">
+                    <!-- Drivers cards will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="driverModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">✕</button>
+            
+            <div class="modal-body">
+                <!-- Driver Info Section -->
+                <div class="modal-section">
+                    <h2>Información del Conductor</h2>
+                    <div class="driver-info">
+                        <div class="driver-photo">
+                            <img id="modalDriverPhoto" src="/placeholder.svg" alt="Foto del conductor">
+                        </div>
+                        <div class="driver-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Nombre:</span>
+                                <span class="detail-value" id="modalDriverName"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Correo:</span>
+                                <span class="detail-value" id="modalDriverEmail"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Teléfono:</span>
+                                <span class="detail-value" id="modalDriverPhone"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Verificado:</span>
+                                <span class="detail-value verified-badge" id="modalDriverVerified"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vehicle Info Section -->
+                <div class="modal-section">
+                    <h2>Información del Vehículo</h2>
+                    <div class="vehicle-info">
+                        <div class="vehicle-photo">
+                            <img id="modalVehiclePhoto" src="/placeholder.svg" alt="Foto del vehículo">
+                        </div>
+                        <div class="vehicle-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Marca:</span>
+                                <span class="detail-value" id="modalVehicleBrand"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Modelo:</span>
+                                <span class="detail-value" id="modalVehicleModel"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Placa:</span>
+                                <span class="detail-value" id="modalVehiclePlate"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Año:</span>
+                                <span class="detail-value" id="modalVehicleYear"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Background Check Section -->
+                <div class="modal-section">
+                    <h2>Antecedentes</h2>
+                    <div class="background-check">
+                        <img id="modalBackgroundPhoto" src="/placeholder.svg" alt="Foto de antecedentes">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/conductores.js"></script>
+</body>
+</html>
