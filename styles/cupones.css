@@ -1,12 +1,12 @@
-/* Drivers Section */
-.drivers-section {
+/* Coupons Section */
+.coupons-section {
   background-color: #fff;
   border-radius: 12px;
   padding: 25px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.drivers-header {
+.coupons-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -14,14 +14,14 @@
   gap: 15px;
 }
 
-.drivers-header h2 {
+.coupons-header h2 {
   font-size: 20px;
   color: #333;
   font-weight: 600;
   margin: 0;
 }
 
-.search-drivers {
+.search-coupons {
   background-color: #f5f5f5;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
@@ -31,90 +31,101 @@
   transition: border-color 0.3s ease;
 }
 
-.search-drivers:focus {
+.search-coupons:focus {
   outline: none;
   border-color: #007bff;
   background-color: #fff;
 }
 
-/* Drivers Grid */
-.drivers-grid {
+/* Coupons Grid */
+.coupons-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
-.driver-card {
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+.coupon-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   cursor: pointer;
-  border: 1px solid #e8e8e8;
-}
-
-.driver-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-  border-color: #007bff;
-}
-
-.driver-card-header {
+  border: 2px solid transparent;
   position: relative;
-  width: 100%;
-  height: 200px;
   overflow: hidden;
-  background-color: #f0f0f0;
 }
 
-.driver-card-header img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.driver-card-verified {
+.coupon-card::before {
+  content: '';
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #4caf50;
-  color: #fff;
-  padding: 5px 12px;
-  border-radius: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.coupon-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.coupon-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.coupon-card-code {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.coupon-card-discount {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.coupon-card-description {
+  font-size: 14px;
+  margin-bottom: 15px;
+  opacity: 0.95;
+  line-height: 1.4;
+}
+
+.coupon-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.coupon-card-expiry {
   font-size: 12px;
+  opacity: 0.85;
+}
+
+.coupon-card-status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
   font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
-.driver-card-verified.unverified {
-  background-color: #ff9800;
+.coupon-card-status.activo {
+  background-color: rgba(76, 175, 80, 0.8);
 }
 
-.driver-card-body {
-  padding: 15px;
-}
-
-.driver-card-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.driver-card-info {
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.driver-card-info strong {
-  color: #333;
+.coupon-card-status.inactivo {
+  background-color: rgba(255, 152, 0, 0.8);
 }
 
 /* Modal */
@@ -152,7 +163,7 @@
 .modal-content {
   background-color: #fff;
   border-radius: 12px;
-  max-width: 700px;
+  max-width: 600px;
   margin: 0 auto;
   position: relative;
   box-shadow: 0 5px 40px rgba(0, 0, 0, 0.2);
@@ -208,27 +219,11 @@
   padding-bottom: 10px;
 }
 
-/* Driver Info */
-.driver-info {
+/* Coupon Info */
+.coupon-info {
   display: flex;
-  gap: 25px;
-  align-items: flex-start;
-}
-
-.driver-photo {
-  flex-shrink: 0;
-}
-
-.driver-photo img {
-  width: 150px;
-  height: 150px;
-  border-radius: 10px;
-  object-fit: cover;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-}
-
-.driver-details {
-  flex: 1;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .detail-item {
@@ -254,83 +249,22 @@
   text-align: right;
 }
 
-.verified-badge {
+.status-badge {
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
   display: inline-block;
-  /* Added transition for smooth color change */
-  transition: all 0.3s ease;
 }
 
-.verified-badge.verified {
+.status-badge.activo {
   background-color: #e8f5e9;
   color: #4caf50;
 }
 
-.verified-badge.unverified {
+.status-badge.inactivo {
   background-color: #fff3e0;
   color: #ff9800;
-}
-
-/* Added hover effect for verified badge */
-.verified-badge:hover {
-  opacity: 0.8;
-  transform: scale(1.05);
-}
-
-/* Vehicle Info */
-.vehicle-info {
-  display: flex;
-  gap: 25px;
-  align-items: flex-start;
-}
-
-.vehicle-photo {
-  flex-shrink: 0;
-}
-
-.vehicle-photo img {
-  width: 150px;
-  height: 150px;
-  border-radius: 10px;
-  object-fit: cover;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-}
-
-.vehicle-details {
-  flex: 1;
-}
-
-/* Background Check */
-.background-check {
-  display: flex;
-  justify-content: center;
-}
-
-.background-check img {
-  max-width: 100%;
-  max-height: 400px;
-  border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Added button styles for CRUD operations */
-.btn-create-driver {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn-create-driver:hover {
-  background-color: #0056b3;
 }
 
 /* Modal Action Buttons */
@@ -343,7 +277,6 @@
   flex-wrap: wrap;
 }
 
-.btn-verify,
 .btn-edit,
 .btn-delete {
   flex: 1;
@@ -355,21 +288,6 @@
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 120px;
-}
-
-.btn-verify {
-  background-color: #4caf50;
-  color: white;
-  /* Changed from always enabled to dynamic based on verification status */
-}
-
-.btn-verify:hover:not(.verified) {
-  background-color: #45a049;
-}
-
-.btn-verify.verified {
-  background-color: #cccccc;
-  cursor: not-allowed;
 }
 
 .btn-edit {
@@ -390,55 +308,60 @@
   background-color: #da190b;
 }
 
+/* Button for creating coupon */
+.btn-create-coupon {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-create-coupon:hover {
+  background-color: #0056b3;
+}
+
 /* Form Modal */
 .form-modal-content {
-  max-width: 600px;
+  max-width: 500px;
 }
 
-.driver-form {
+.coupon-form {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-}
-
-.form-section {
-  border-bottom: 1px solid #f0f0f0;
-  padding-bottom: 20px;
-}
-
-.form-section:last-of-type {
-  border-bottom: none;
-}
-
-.form-section h3 {
-  font-size: 16px;
-  color: #333;
-  font-weight: 600;
-  margin-bottom: 15px;
+  gap: 20px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
+  gap: 8px;
 }
 
 .form-group label {
   font-size: 14px;
   font-weight: 600;
   color: #333;
-  margin-bottom: 8px;
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea,
+.form-group select {
   padding: 10px 12px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   font-size: 14px;
   transition: border-color 0.3s ease;
+  font-family: inherit;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
@@ -482,22 +405,18 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .drivers-header {
+  .coupons-header {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .search-drivers {
+  .search-coupons {
     width: 100%;
   }
 
-  .drivers-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  .coupons-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px;
-  }
-
-  .driver-card-header {
-    height: 150px;
   }
 
   .modal-content {
@@ -509,49 +428,16 @@
     padding: 20px;
   }
 
-  .driver-info,
-  .vehicle-info {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .driver-photo img,
-  .vehicle-photo img {
-    width: 120px;
-    height: 120px;
-  }
-
-  .detail-item {
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .detail-value {
-    text-align: center;
-  }
-
   .modal-actions {
     flex-direction: column;
   }
 
-  .btn-verify,
   .btn-edit,
   .btn-delete {
     min-width: 100%;
   }
 
-  .drivers-header {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn-create-driver {
-    width: 100%;
-  }
-
-  .search-drivers {
+  .btn-create-coupon {
     width: 100%;
   }
 }

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasajeros - Taxi Cheap</title>
+    <link rel="stylesheet" href="/styles/dashboard.css">
+    <link rel="stylesheet" href="/styles/pasajeros.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <button class="sidebar-toggle-desktop" id="sidebarToggleDesktop">☰</button>
+            <div class="logo">
+                <div class="logo-icon">🏠</div>
+                <span>Taxi Cheap</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <input type="text" class="search-bar" placeholder="Type here...">
+            <button>🔐 Sign in</button>
+            <button>⚙️</button>
+            <button>🔔</button>
+        </div>
+    </div>
+
+    <!-- Overlay del sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <button class="close-sidebar" id="closeSidebar">✕</button>
+            <div class="sidebar-header"></div>
+
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html" data-menu="dashboard">
+                    <span class="menu-icon">📈</span>
+                    Administradores
+                </a></li>
+                <li><a href="conductores.html" data-menu="conductores">
+                    <span class="menu-icon">📈</span>
+                    Conductores
+                </a></li>
+                <li><a href="pasajeros.html" class="active" data-menu="pasajeros">
+                    <span class="menu-icon">👥</span>
+                    Pasajeros
+                </a></li>
+                <li><a href="cupones.html" data-menu="cupones">
+                    <span class="menu-icon">🎟️</span>
+                    Cupones
+                </a></li>
+                <li><a href="#" data-menu="rtl">
+                    <span class="menu-icon">🗺️</span>
+                    Mapa
+                </a></li>
+            </ul>
+
+            <div class="sidebar-section-title">Configuracion</div>
+            <ul class="sidebar-menu">
+                <li><a href="#" data-menu="profile">
+                    <span class="menu-icon">👤</span>
+                    Cuenta
+                </a></li>
+                <li><a href="#" data-menu="signin">
+                    <span class="menu-icon">🔓</span>
+                    Cerrar sesion
+                </a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <h1>Pasajeros</h1>
+                <div class="top-bar-controls">
+                    <button>🔍</button>
+                    <button>⚙️</button>
+                    <button>🔔</button>
+                </div>
+            </div>
+
+            <!-- Passengers Section -->
+            <div class="passengers-section">
+                <div class="passengers-header">
+                    <h2>Lista de Pasajeros</h2>
+                    <input type="text" class="search-passengers" id="searchPassengers" placeholder="Buscar pasajero...">
+                </div>
+
+                <div class="passengers-grid" id="passengersGrid">
+                    <!-- Passenger cards will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver detalles -->
+    <div class="modal" id="passengerModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">✕</button>
+            
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h2>Información del Pasajero</h2>
+                    <div class="passenger-info">
+                        <div class="passenger-photo">
+                            <img id="modalPassengerPhoto" src="/placeholder.svg" alt="Foto del pasajero">
+                        </div>
+                        <div class="passenger-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Nombre:</span>
+                                <span class="detail-value" id="modalPassengerName"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Email:</span>
+                                <span class="detail-value" id="modalPassengerEmail"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Teléfono:</span>
+                                <span class="detail-value" id="modalPassengerPhone"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Verificado:</span>
+                                <span class="detail-value verified-badge" id="modalPassengerVerified" style="cursor: pointer;"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="modal-actions">
+                    <button class="btn-verify" id="btnVerifyPassenger">✓ Verificar Pasajero</button>
+                    <button class="btn-delete" id="btnDeletePassenger">🗑️ Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/pasajeros.js"></script>
+</body>
+</html>

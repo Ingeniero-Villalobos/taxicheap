@@ -1,12 +1,11 @@
-// Sample drivers data
-const driversData = [
+let driversData = JSON.parse(localStorage.getItem('driversData')) || [
   {
     id: 1,
     name: "Juan Pérez",
     email: "juan.perez@email.com",
     phone: "+1 (555) 123-4567",
     photo: "/driver-photo.jpg",
-    verified: false,
+    verified: true,
     vehicle: {
       brand: "Toyota",
       model: "Camry",
@@ -14,7 +13,7 @@ const driversData = [
       year: 2022,
       photo: "/vehicle-photo.jpg",
     },
-    backgroundPhoto: "/image/background-check.jpg",
+    backgroundPhoto: "/background-check.jpg",
   },
   {
     id: 2,
@@ -73,6 +72,21 @@ const driverModal = document.getElementById("driverModal")
 const modalOverlay = document.getElementById("modalOverlay")
 const closeModal = document.getElementById("closeModal")
 
+const formModal = document.getElementById("formModal")
+const formModalOverlay = document.getElementById("formModalOverlay")
+const closeFormModal = document.getElementById("closeFormModal")
+const driverForm = document.getElementById("driverForm")
+const btnCreateDriver = document.getElementById("btnCreateDriver")
+const btnCancelForm = document.getElementById("btnCancelForm")
+const formModalTitle = document.getElementById("formModalTitle")
+
+let currentDriverId = null
+
+// Save drivers to localStorage
+function saveDriversToStorage() {
+  localStorage.setItem('driversData', JSON.stringify(driversData))
+}
+
 // Render drivers
 function renderDrivers(drivers = driversData) {
   driversGrid.innerHTML = ""
@@ -103,6 +117,8 @@ function renderDrivers(drivers = driversData) {
 
 // Open modal with driver info
 function openModal(driver) {
+  currentDriverId = driver.id
+  
   document.getElementById("modalDriverName").textContent = driver.name
   document.getElementById("modalDriverEmail").textContent = driver.email
   document.getElementById("modalDriverPhone").textContent = driver.phone
@@ -125,6 +141,17 @@ function openModal(driver) {
 
   document.getElementById("modalBackgroundPhoto").src = driver.backgroundPhoto
 
+  const btnVerify = document.getElementById("btnVerifyDriver")
+  if (driver.verified) {
+    btnVerify.textContent = "✓ Verificado"
+    btnVerify.classList.add("verified")
+    btnVerify.disabled = true
+  } else {
+    btnVerify.textContent = "✓ Verificar Conductor"
+    btnVerify.classList.remove("verified")
+    btnVerify.disabled = false
+  }
+
   driverModal.classList.add("active")
   modalOverlay.classList.add("active")
 }
@@ -133,10 +160,115 @@ function openModal(driver) {
 function closeDriverModal() {
   driverModal.classList.remove("active")
   modalOverlay.classList.remove("active")
+  currentDriverId = null
 }
+
+function openFormModal(driverId = null) {
+  closeDriverModal()
+  
+  if (driverId) {
+    // Editing mode
+    const driver = driversData.find(d => d.id === driverId)
+    if (driver) {
+      formModalTitle.textContent = "Editar Conductor"
+      document.getElementById("driverName").value = driver.name
+      document.getElementById("driverEmail").value = driver.email
+      document.getElementById("driverPhone").value = driver.phone
+      document.getElementById("vehicleBrand").value = driver.vehicle.brand
+      document.getElementById("vehicleModel").value = driver.vehicle.model
+      document.getElementById("vehiclePlate").value = driver.vehicle.plate
+      document.getElementById("vehicleYear").value = driver.vehicle.year
+      currentDriverId = driverId
+    }
+  } else {
+    // Creating mode
+    formModalTitle.textContent = "Crear Conductor"
+    driverForm.reset()
+    currentDriverId = null
+  }
+
+  formModal.classList.add("active")
+  formModalOverlay.classList.add("active")
+}
+
+// Close form modal
+function closeFormModalFunc() {
+  formModal.classList.remove("active")
+  formModalOverlay.classList.remove("active")
+  driverForm.reset()
+  currentDriverId = null
+}
+
+driverForm.addEventListener("submit", (e) => {
+  e.preventDefault()
+
+  const newDriver = {
+    id: currentDriverId || Date.now(),
+    name: document.getElementById("driverName").value,
+    email: document.getElementById("driverEmail").value,
+    phone: document.getElementById("driverPhone").value,
+    photo: document.getElementById("driverPhoto").value || "/driver-photo.jpg",
+    verified: currentDriverId ? driversData.find(d => d.id === currentDriverId)?.verified || false : false,
+    vehicle: {
+      brand: document.getElementById("vehicleBrand").value,
+      model: document.getElementById("vehicleModel").value,
+      plate: document.getElementById("vehiclePlate").value,
+      year: parseInt(document.getElementById("vehicleYear").value),
+      photo: document.getElementById("vehiclePhoto").value || "/vehicle-photo.jpg",
+    },
+    backgroundPhoto: document.getElementById("backgroundPhoto").value || "/background-check.jpg",
+  }
+
+  if (currentDriverId) {
+    // Update
+    const index = driversData.findIndex(d => d.id === currentDriverId)
+    if (index !== -1) {
+      driversData[index] = newDriver
+    }
+  } else {
+    // Create
+    driversData.push(newDriver)
+  }
+
+  saveDriversToStorage()
+  renderDrivers()
+  closeFormModalFunc()
+})
+
+document.getElementById("btnVerifyDriver").addEventListener("click", () => {
+  if (currentDriverId) {
+    const driver = driversData.find(d => d.id === currentDriverId)
+    if (driver) {
+      driver.verified = !driver.verified
+      saveDriversToStorage()
+      openModal(driver)
+      renderDrivers()
+    }
+  }
+})
+
+document.getElementById("btnEditDriver").addEventListener("click", () => {
+  openFormModal(currentDriverId)
+})
+
+document.getElementById("btnDeleteDriver").addEventListener("click", () => {
+  if (currentDriverId && confirm("¿Estás seguro de que deseas eliminar este conductor?")) {
+    driversData = driversData.filter(d => d.id !== currentDriverId)
+    saveDriversToStorage()
+    renderDrivers()
+    closeDriverModal()
+  }
+})
 
 closeModal.addEventListener("click", closeDriverModal)
 modalOverlay.addEventListener("click", closeDriverModal)
+closeFormModal.addEventListener("click", closeFormModalFunc)
+formModalOverlay.addEventListener("click", closeFormModalFunc)
+btnCancelForm.addEventListener("click", closeFormModalFunc)
+
+btnCreateDriver.addEventListener("click", () => {
+  openFormModal()
+})
 
 // Search drivers
 searchDrivers.addEventListener("input", (e) => {
@@ -153,7 +285,11 @@ searchDrivers.addEventListener("input", (e) => {
 // Close modal on escape key
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
-    closeDriverModal()
+    if (formModal.classList.contains("active")) {
+      closeFormModalFunc()
+    } else if (driverModal.classList.contains("active")) {
+      closeDriverModal()
+    }
   }
 })
 

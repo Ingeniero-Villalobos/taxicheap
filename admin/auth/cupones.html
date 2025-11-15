@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cupones - Taxi Cheap</title>
+    <link rel="stylesheet" href="/styles/dashboard.css">
+    <link rel="stylesheet" href="/styles/cupones.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <button class="sidebar-toggle-desktop" id="sidebarToggleDesktop">☰</button>
+            <div class="logo">
+                <div class="logo-icon">🏠</div>
+                <span>Taxi Cheap</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <input type="text" class="search-bar" placeholder="Type here...">
+            <button>🔐 Sign in</button>
+            <button>⚙️</button>
+            <button>🔔</button>
+        </div>
+    </div>
+
+    <!-- Overlay del sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <button class="close-sidebar" id="closeSidebar">✕</button>
+            <div class="sidebar-header"></div>
+
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html" data-menu="dashboard">
+                    <span class="menu-icon">📈</span>
+                    Administradores
+                </a></li>
+                <li><a href="conductores.html" data-menu="conductores">
+                    <span class="menu-icon">📈</span>
+                    Conductores
+                </a></li>
+                <li><a href="pasajeros.html" data-menu="pasajeros">
+                    <span class="menu-icon">👥</span>
+                    Pasajeros
+                </a></li>
+                <li><a href="cupones.html" class="active" data-menu="cupones">
+                    <span class="menu-icon">🎟️</span>
+                    Cupones
+                </a></li>
+                <li><a href="#" data-menu="rtl">
+                    <span class="menu-icon">🗺️</span>
+                    Mapa
+                </a></li>
+            </ul>
+
+            <div class="sidebar-section-title">Configuracion</div>
+            <ul class="sidebar-menu">
+                <li><a href="#" data-menu="profile">
+                    <span class="menu-icon">👤</span>
+                    Cuenta
+                </a></li>
+                <li><a href="#" data-menu="signin">
+                    <span class="menu-icon">🔓</span>
+                    Cerrar sesion
+                </a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <h1>Cupones</h1>
+                <div class="top-bar-controls">
+                    <button>🔍</button>
+                    <button>⚙️</button>
+                    <button>🔔</button>
+                </div>
+            </div>
+
+            <!-- Coupons Section -->
+            <div class="coupons-section">
+                <div class="coupons-header">
+                    <h2>Lista de Cupones</h2>
+                    <button class="btn-create-coupon" id="btnCreateCoupon">+ Crear Cupón</button>
+                    <input type="text" class="search-coupons" id="searchCoupons" placeholder="Buscar cupón...">
+                </div>
+
+                <div class="coupons-grid" id="couponsGrid">
+                    <!-- Coupon cards will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver detalles -->
+    <div class="modal" id="couponModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">✕</button>
+            
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h2>Detalles del Cupón</h2>
+                    <div class="coupon-info">
+                        <div class="detail-item">
+                            <span class="detail-label">Código:</span>
+                            <span class="detail-value" id="modalCouponCode"></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Descripción:</span>
+                            <span class="detail-value" id="modalCouponDescription"></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Porcentaje Descuento:</span>
+                            <span class="detail-value" id="modalCouponDiscount"></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Fecha Expiración:</span>
+                            <span class="detail-value" id="modalCouponExpiry"></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Estado:</span>
+                            <span class="detail-value status-badge" id="modalCouponStatus"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="modal-actions">
+                    <button class="btn-edit" id="btnEditCoupon">✏️ Editar</button>
+                    <button class="btn-delete" id="btnDeleteCoupon">🗑️ Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para crear/editar cupón -->
+    <div class="modal" id="formModal">
+        <div class="modal-content form-modal-content">
+            <button class="modal-close" id="closeFormModal">✕</button>
+            
+            <div class="modal-body">
+                <h2 id="formModalTitle">Crear Cupón</h2>
+                
+                <form id="couponForm" class="coupon-form">
+                    <div class="form-group">
+                        <label for="couponCode">Código Cupón:</label>
+                        <input type="text" id="couponCode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="couponDescription">Descripción:</label>
+                        <textarea id="couponDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="couponDiscount">Porcentaje Descuento (%):</label>
+                        <input type="number" id="couponDiscount" min="0" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="couponExpiry">Fecha Expiración:</label>
+                        <input type="date" id="couponExpiry" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="couponStatus">Estado:</label>
+                        <select id="couponStatus" required>
+                            <option value="activo">Activo</option>
+                            <option value="inactivo">Inactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn-submit">Guardar</button>
+                        <button type="button" class="btn-cancel" id="btnCancelForm">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-overlay" id="formModalOverlay"></div>
+
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/cupones.js"></script>
+</body>
+</html>
